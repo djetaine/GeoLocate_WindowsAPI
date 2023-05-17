@@ -58,6 +58,6 @@ if ($GeoLocationLatLong.Permission -eq 'Denied'){
     }
 }
 #This sets updates a custom field in NinjaRMM to display the address and create a link to google maps
-Ninja-Property-Set Address $Address
-$GoogleMapsLink = "https://www.google.com/maps/@$latitude,$longitude"
-Ninja-Property-Set GoogleMapsLink = $GoogleMapsLink
+#Ninja-Property-Set Address $Address
+#$GoogleMapsLink = "https://www.google.com/maps/@$latitude,$longitude"
+#Ninja-Property-Set GoogleMapsLink = $GoogleMapsLink
