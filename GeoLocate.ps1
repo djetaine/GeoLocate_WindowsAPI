@@ -65,5 +65,5 @@ if ($GeoLocationLatLong.Permission -eq 'Denied'){
 # Once created set the technician field to Read Only and the Scripts field to Write. Set to Read/Write if you plan on using this value in further scripts. 
 
 #Ninja-Property-Set -name Address -value $Address
-#$GoogleMapsLink = "https://www.google.com/maps/@$latitude,$longitude"
+#$GoogleMapsLink = "https://www.google.com/maps/@$latitude,$longitude,15z"
 #Ninja-Property-Set -name GoogleMapsurl -value $GoogleMapsLink
