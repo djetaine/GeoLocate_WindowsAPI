@@ -45,8 +45,11 @@ if ($GeoLocationLatLong.Permission -eq 'Denied'){
     $latitude = $GeoLocationLatLong.Position.Location.Latitude
     $longitude = $GeoLocationLatLong.Position.Location.Longitude
 
-    $apiKey = '<your OpenCage API Key>' # Replace with your OpenCage API key
-    $url = "https://api.opencagedata.com/geocode/v1/json?q=$latitude+$longitude&key=$apiKey"
+#-----------------------------------------------------------------------------------------
+# USE OpenCage API to get street address
+# Comment this block if you dont need a street address or want to use Google Maps instead
+$apiKey = '<your OpenCage API Key>' # Replace with your OpenCage API key
+$url = "https://api.opencagedata.com/geocode/v1/json?q=$latitude+$longitude&key=$apiKey"
 
     $response = Invoke-RestMethod -Uri $url
 
@@ -57,6 +60,25 @@ if ($GeoLocationLatLong.Permission -eq 'Denied'){
         Write-Error 'Failed to retrieve address'
     }
 }
+$GoogleMapsLink = "https://www.google.com/maps/@$latitude,$longitude,15z"
+#End OpenCage Address query
+#----------------------------------------------------------------------------------------
+
+#----------------------------------------------------------------------------------------
+#Use Google Maps API to pull street Address
+#Comment this block if you dont need street address or want to use OpenCage instead
+#$apiKey = "YOUR_API_KEY"  # Replace with your Google Maps API key
+
+# Build the URL for the Geocoding API request
+#$apiUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$apiKey"
+
+# Send the HTTP request to the Geocoding API
+#$response = Invoke-RestMethod -Uri $apiUrl -Method Get
+
+# Extract the address and Google Maps link from the API response
+#$address = $response.results[0].formatted_address
+#$googleMapsLink = $response.results[0].url
+#----------------------------------------------------------------------------------------
 
 # Uncomment this if you use this script in conjunction with NinjaRMM
 # The following updates a custom field in NinjaRMM to display the address and create a link to google maps. 
@@ -64,6 +86,5 @@ if ($GeoLocationLatLong.Permission -eq 'Denied'){
 # Address is a Text Field type, Url is a URL Field type.
 # Once created set the technician field to Read Only and the Scripts field to Write. Set to Read/Write if you plan on using this value in further scripts. 
 
-#Ninja-Property-Set -name Address -value $Address
-#$GoogleMapsLink = "https://www.google.com/maps/@$latitude,$longitude,15z"
-#Ninja-Property-Set -name GoogleMapsurl -value $GoogleMapsLink
+Ninja-Property-Set -name Address -value $Address
+Ninja-Property-Set -name GoogleMapsurl -value $GoogleMapsLink
